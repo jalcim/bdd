@@ -23,7 +23,6 @@ void gest(char *login, char *buffer)
 {
   t_datalist *datalist;
 
-  printf("gest buffer = :%s:\n\n\n", buffer);
   datalist = recup_datalist(NULL);
   if ((datalist = find_login(login, datalist)))
     printf("chat trouver\n");
@@ -32,9 +31,8 @@ void gest(char *login, char *buffer)
 	  datalist = creat_datalist(login);
       printf("chat creer\n");
   }
-  printf("av maj buffer = :%s:\n", buffer);
-  maj_data(datalist, buffer);
-  printf("gest data = :%s:\n", datalist->data[datalist->cpt_read]);
+  datalist->data[datalist->cpt_max] = buffer;
+  datalist->cpt_max++;
 }
 
 t_datalist *find_login(char *login, t_datalist *data)
@@ -77,12 +75,4 @@ void add_chain(t_datalist *block)
 		block->next = chain;
 		chain->prev = block;
     }
-}
-
-t_datalist *maj_data(t_datalist *data, char *buffer)
-{
-	printf("maj buffer = :%s:\n", buffer);
-	data->data[data->cpt_max] = buffer;
-	printf("maj data = :%s:\n", data->data[data->cpt_max]);
-	data->cpt_max++;
 }
