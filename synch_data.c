@@ -62,6 +62,7 @@ t_datalist *creat_datalist(char *login)
 	add_chain(data);
 	recup_datalist(data);
 	init_data(-1);
+	return (data);
 }
 
 void add_chain(t_datalist *block)

@@ -31,7 +31,7 @@ void init_transit(int cmd)//a appeler dans shell_server
 void init_data(int cmd)
 {
 	static t_datalist **sdata = NULL;
-	int cpt;
+	static int cpt;
 
 	if (!sdata)
 	{
@@ -48,6 +48,7 @@ void init_data(int cmd)
 	{
 		printf("positionnement des listes\n");
 		recup_datalist(sdata[cmd-1]);
+		cpt = (cmd - 1);
 	}
 	else if (cmd < 0)
 	{
@@ -66,8 +67,7 @@ int *recup_pipefd(int *pipefd)
 
   if (pipefd)
     spipefd = pipefd;
-  else
-	  return (spipefd);
+  return (spipefd);
 }
 
 t_datalist *recup_datalist(t_datalist *datalist)
