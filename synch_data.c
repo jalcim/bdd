@@ -11,8 +11,8 @@ void synch_data()//a appeler dans l'interface chat et dans une fonction de secur
   pipefd = recup_pipefd(NULL);
   while ((size = size_fd(pipefd[0])))
     {
-      login = read_fd(pipefd[0]);
-      buffer = read_fd(pipefd[0]);
+      login = read_line(pipefd[0]);
+      buffer = read_line(pipefd[0]);
 	  printf("login == :%s:\n", login);
 	  printf("buffer == :%s:\n\n", buffer);
       gest(login, buffer);
@@ -57,10 +57,7 @@ t_datalist *creat_datalist(char *login)
 	
 	data = (t_datalist *)malloc(sizeof(t_datalist));
 	data->data = (char **)malloc(100 * sizeof(char *));
-	//data->login = (char *)malloc((strlen(login)+1) * sizeof(char));
-	// strcpy(data->login, login);
 	data->login = login;
-	//
 	data->data[0] = NULL;
 	data->cpt_read = 0;
 	data->cpt_max = 0;

@@ -1,16 +1,42 @@
 #include "transit_bdd.h"
 
-char *read_fd(int fd)
+char *read_line(int fd)
 {
-  char *buffer;
-  int compt;
+	char *tmp;
+	char *buffer;
+	int compt;
 
-  buffer = (char *)malloc(2000);
-  compt = -1;
-  while (read(fd, &buffer[++compt], 1) > 0 && buffer[compt] && compt < 1999)
-    ;
-  buffer[compt] = '\0';
-  return (buffer);
+	compt = 0;
+	tmp = (char *)malloc(2 * sizeof(char));
+	bzero(tmp, 2);
+	buffer = NULL;
+	read(fd, tmp, 1);
+	tmp[++compt] = '\0';
+	while (42)
+	{
+		if (!buffer)
+		{
+			buffer = (char *)malloc(compt+2 * sizeof(char));
+			strcpy(buffer, tmp);
+			free(tmp);
+			tmp = NULL;
+			read(fd, &buffer[compt], 1);
+			if (!(buffer[compt]))
+				return (buffer);
+			buffer[++compt] = '\0';
+		}
+		else
+		{
+			tmp = malloc(compt+2 * sizeof(char));
+			strcpy(tmp, buffer);
+			free(buffer);
+			buffer = NULL;
+			read(fd, &tmp[compt], 1);
+			if (!(tmp[compt]))
+				return (tmp);
+			tmp[++compt] = '\0';
+		}
+	}
 }
 
 int size_fd(int fd)

@@ -32,4 +32,4 @@ void add_chain(t_datalist *block);
 t_datalist *maj_data(t_datalist *data, char *buffer);
 
 int size_fd(int fd);
-char *read_fd(int fd);
+char *read_line(int fd);
